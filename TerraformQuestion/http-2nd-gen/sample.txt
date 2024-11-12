@@ -33,3 +33,20 @@ jobs:
     steps:
       - name: Run job for direct repository_dispatch with env=prod
         run: echo "Job is running because it was triggered directly by repository_dispatch with env set to prod."
+
+
+
+
+{
+    "event_type": "garm-dev-pro-workflow",
+    "client_payload": {
+        "PRO": {
+            "vars": {
+                "env": "dev",
+                "data_center": "US-EAST4",
+                "skipPro": false
+            }
+        }
+    }
+}
+
