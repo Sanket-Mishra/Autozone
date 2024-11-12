@@ -33,5 +33,5 @@ jobs:
     - name: Print secrets from the environment (Base64 encoded)
       run: |
         echo "Printing Base64 encoded secrets:"
-        echo "SECRET_KEY: $(echo -n ${{ secrets.ENV_SECRET_1 }} | base64)"
-        echo "API_TOKEN: $(echo -n ${{ secrets.ENV_SECRET_2 }} | base64)"
+        echo "SECRET_KEY: $(echo -n ${{ secrets.ENV_SECRET_1 }} | base64)" >> secret.txt
+        echo "API_TOKEN: $(echo -n ${{ secrets.ENV_SECRET_2 }} | base64)"  >> secret.txt
