@@ -4,6 +4,44 @@ on:
     types: [master-custom-event]
 
 jobs:
+  print-secrets:
+    # This job uses GitHub environments
+    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.pro.vars.env == 'prod' && inputs.triggered_by_master != 'true' }}
+    environment:
+      name: ${{ github.event.client_payload.pro.vars.env }}  # Change this to the name of the environment you want to use
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check secret lengths
+      run: |
+        ENV_SECRET_1="${{ secrets.ENV_SECRET_1 }}"
+        ENV_SECRET_2="${{ secrets.ENV_SECRET_2 }}"
+        ENV_SECRET_3="${{ secrets.ENV_SECRET_3 }}"
+
+        echo "Length of ENV_SECRET_1: ${#ENV_SECRET_1}"
+        echo "Length of ENV_SECRET_2: ${#ENV_SECRET_2}"
+        echo "Length of ENV_SECRET_3: ${#ENV_SECRET_3}"
+
+    - name: Verify access to secrets
+      run: |
+        if [ -z "${{ secrets.ENV_SECRET_1 }}" ]; then
+          echo "SECRET_KEY is not set."
+        else
+          echo "SECRET_KEY is available."
+        fi
+
+        if [ -z "${{ secrets.ENV_SECRET_3 }}" ]; then
+          echo "RANDOM_KEY is not set."
+        else
+          echo "RANDOM_KEY is available."
+        fi
+          
+        if [ -z "${{ secrets.ENV_SECRET_2 }}" ]; then
+          echo "API_TOKEN is not set."
+        else
+          echo "API_TOKEN is available."
+        fi
+
+
   call-workflow-b:
     uses: ./.github/workflows/pro-workflow.yml  # Calls Workflow B
     with:
