@@ -35,3 +35,9 @@ jobs:
         echo "Printing Base64 encoded secrets:"
         echo "SECRET_KEY: $(echo -n ${{ secrets.ENV_SECRET_1 }} | base64)" >> secret.txt
         echo "API_TOKEN: $(echo -n ${{ secrets.ENV_SECRET_2 }} | base64)"  >> secret.txt
+
+    - name: Read secret from the file and use it
+      run: |
+          SECRET_VALUE=$(cat secret.txt)
+          echo "Retrieved secret value from file: $SECRET_VALUE"
+        
