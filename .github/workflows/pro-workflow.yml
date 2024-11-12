@@ -45,9 +45,11 @@ jobs:
       run: |
         ENV_SECRET_1="${{ secrets.ENV_SECRET_1 }}"
         ENV_SECRET_2="${{ secrets.ENV_SECRET_2 }}"
+        ENV_SECRET_3="${{ secrets.ENV_SECRET_3 }}
 
         echo "Length of ENV_SECRET_1: ${#ENV_SECRET_1}"
         echo "Length of ENV_SECRET_2: ${#ENV_SECRET_2}"
+        echo "Length of ENV_SECRET_3: ${#ENV_SECRET_3}"
 
     - name: Verify access to secrets
       run: |
@@ -57,6 +59,12 @@ jobs:
           echo "SECRET_KEY is available."
         fi
 
+        if [ -z "${{ secrets.ENV_SECRET_3 }}" ]; then
+          echo "RANDOM_KEY is not set."
+        else
+          echo "RANDOM_KEY is available."
+        fi
+          
         if [ -z "${{ secrets.ENV_SECRET_2 }}" ]; then
           echo "API_TOKEN is not set."
         else
