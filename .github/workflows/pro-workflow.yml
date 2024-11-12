@@ -9,6 +9,13 @@ on:
         type: string
 
 jobs:
+  onto-something:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check reachability
+        run: |
+          echo "I am here in called workflow"
+  
   do-something:
     # Run this job only when:
     # - Workflow B is triggered directly by repository_dispatch
