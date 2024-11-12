@@ -14,7 +14,7 @@ jobs:
     # - Workflow B is triggered directly by repository_dispatch
     # - The client_payload field `env` is set to "prod"
     # - Workflow B is NOT called by Workflow A (i.e., `triggered_by_workflow_a` is not set)
-    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.pro.vars.env == 'prod' && inputs.triggered_by_master == 'true' }}
+    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.pro.vars.env == 'prod' && inputs.triggered_by_master != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Print triggered_by_workflow_a input
@@ -26,22 +26,11 @@ jobs:
 
   print-secrets:
     # This job uses GitHub environments
-    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.pro.vars.env == 'prod' && inputs.triggered_by_master == 'true' }}
+    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.pro.vars.env == 'prod' && inputs.triggered_by_master != 'true' }}
     environment:
       name: ${{ github.event.client_payload.pro.vars.env }}  # Change this to the name of the environment you want to use
     runs-on: ubuntu-latest
     steps:
-    - name: Print secrets from the environment (Base64 encoded)
-      run: |
-        echo "Printing Base64 encoded secrets:"
-        echo "SECRET_KEY: $(echo -n ${{ secrets.ENV_SECRET_1 }} | base64)" >> secret.txt
-        echo "API_TOKEN: $(echo -n ${{ secrets.ENV_SECRET_2 }} | base64)"  >> secret.txt
-
-    - name: Read secret from the file and use it
-      run: |
-          SECRET_VALUE=$(cat secret.txt)
-          echo "Retrieved secret value from file: $SECRET_VALUE"
-
     - name: Check secret lengths
       run: |
         ENV_SECRET_1="${{ secrets.ENV_SECRET_1 }}"
