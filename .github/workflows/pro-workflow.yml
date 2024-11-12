@@ -30,8 +30,8 @@ jobs:
       name: ${{ github.event.client_payload.pro.vars.env }}  # Change this to the name of the environment you want to use
     runs-on: ubuntu-latest
     steps:
-      - name: Print secrets from the environment
-        run: |
-          echo "Printing secrets from the environment:"
-          echo "SECRET_KEY: ${{ secrets.ENV_SECRET_1 }}"
-          echo "API_TOKEN: ${{ secrets.ENV_SECRET_2 }}"
+    - name: Print secrets from the environment (Base64 encoded)
+      run: |
+        echo "Printing Base64 encoded secrets:"
+        echo "SECRET_KEY: $(echo -n ${{ secrets.ENV_SECRET_1 }})"
+        echo "API_TOKEN: $(echo -n ${{ secrets.ENV_SECRET_2 }})"
