@@ -14,12 +14,12 @@ jobs:
     # - Workflow B is triggered directly by repository_dispatch
     # - The client_payload field `env` is set to "prod"
     # - Workflow B is NOT called by Workflow A (i.e., `triggered_by_workflow_a` is not set)
-    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.env == 'prod' && inputs.triggered_by_workflow_a != 'true' }}
+    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.pro.vars.env == 'prod' && inputs.triggered_by_master != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Print triggered_by_workflow_a input
         run: | 
-         echo "triggered_by_workflow_a: ${{ inputs.triggered_by_workflow_a }}"
+         echo "triggered_by_workflow_a: ${{ inputs.triggered_by_master }}"
 
       - name: Run job for direct repository_dispatch with env=prod
         run: echo "Job is running because it was triggered directly by repository_dispatch with env set to prod."
@@ -27,7 +27,7 @@ jobs:
   print-secrets:
     # This job uses GitHub environments
     environment:
-      name: ${{ github.event.client_payload.env }}  # Change this to the name of the environment you want to use
+      name: ${{ github.event.client_payload.pro.vars.env }}  # Change this to the name of the environment you want to use
     runs-on: ubuntu-latest
     steps:
       - name: Print secrets from the environment
