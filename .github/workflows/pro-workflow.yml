@@ -27,6 +27,7 @@ jobs:
         run: | 
          echo "triggered_by_workflow_a: ${{ inputs.triggered_by_master }}"
          echo "This GitHub Action was triggered by: ${{ github.event_name }}"
+         echo "${{ secrets.REPO_SECRET }}"
 
       - name: Run job for direct repository_dispatch with env=prod
         run: echo "Job is running because it was triggered directly by repository_dispatch with env set to prod."
