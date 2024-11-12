@@ -33,5 +33,5 @@ jobs:
       - name: Print secrets from the environment
         run: |
           echo "Printing secrets from the environment:"
-          echo "SECRET_KEY: ${{ secrets.SECRET_KEY }}"
-          echo "API_TOKEN: ${{ secrets.API_TOKEN }}"
+          echo "SECRET_KEY: ${{ secrets.ENV_SECRET_1 }}"
+          echo "API_TOKEN: ${{ secrets.ENV_SECRET_2 }}"
