@@ -1,0 +1,37 @@
+name: Pro-workflow
+on:
+  repository_dispatch:
+    types: [pro-custom-event]  # Allow Workflow B to be triggered directly by repository_dispatch
+  workflow_call:  # Allow Workflow B to be called by Workflow A
+    inputs:
+      triggered_by_master:
+        required: false
+        type: string
+
+jobs:
+  do-something:
+    # Run this job only when:
+    # - Workflow B is triggered directly by repository_dispatch
+    # - The client_payload field `env` is set to "prod"
+    # - Workflow B is NOT called by Workflow A (i.e., `triggered_by_workflow_a` is not set)
+    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.env == 'prod' && inputs.triggered_by_workflow_a != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print triggered_by_workflow_a input
+        run: | 
+         echo "triggered_by_workflow_a: ${{ inputs.triggered_by_workflow_a }}"
+
+      - name: Run job for direct repository_dispatch with env=prod
+        run: echo "Job is running because it was triggered directly by repository_dispatch with env set to prod."
+
+  print-secrets:
+    # This job uses GitHub environments
+    environment:
+      name: ${{ github.event.client_payload.env }}  # Change this to the name of the environment you want to use
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print secrets from the environment
+        run: |
+          echo "Printing secrets from the environment:"
+          echo "SECRET_KEY: ${{ secrets.SECRET_KEY }}"
+          echo "API_TOKEN: ${{ secrets.API_TOKEN }}"

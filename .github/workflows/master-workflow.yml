@@ -1,0 +1,10 @@
+name: Master workflow
+on:
+  repository_dispatch:
+    types: [master-custom-event]
+
+jobs:
+  call-workflow-b:
+    uses: ./.github/workflows/pro-workflow.yml  # Calls Workflow B
+    with:
+      triggered_by_master: "true"  # Custom input to indicate workflow origin
