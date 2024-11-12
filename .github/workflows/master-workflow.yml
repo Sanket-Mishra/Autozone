@@ -6,7 +6,6 @@ on:
 jobs:
   print-secrets:
     # This job uses GitHub environments
-    if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.pro.vars.env == 'prod' && inputs.triggered_by_master != 'true' }}
     environment:
       name: ${{ github.event.client_payload.pro.vars.env }}  # Change this to the name of the environment you want to use
     runs-on: ubuntu-latest
