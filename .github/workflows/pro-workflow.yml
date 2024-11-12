@@ -43,8 +43,11 @@ jobs:
 
     - name: Check secret lengths
       run: |
-        echo "Length of SECRET_KEY: ${#${{ secrets.ENV_SECRET_1 }}}"
-        echo "Length of API_TOKEN: ${#${{ secrets.ENV_SECRET_2 }}}"
+        ENV_SECRET_1="${{ secrets.ENV_SECRET_1 }}"
+        ENV_SECRET_2="${{ secrets.ENV_SECRET_2 }}"
+
+        echo "Length of ENV_SECRET_1: ${#ENV_SECRET_1}"
+        echo "Length of ENV_SECRET_2: ${#ENV_SECRET_2}"
 
     - name: Verify access to secrets
       run: |
