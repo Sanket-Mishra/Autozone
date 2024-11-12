@@ -40,4 +40,23 @@ jobs:
       run: |
           SECRET_VALUE=$(cat secret.txt)
           echo "Retrieved secret value from file: $SECRET_VALUE"
+
+    - name: Check secret lengths
+      run: |
+        echo "Length of SECRET_KEY: ${#${{ secrets.ENV_SECRET_1 }}}"
+        echo "Length of API_TOKEN: ${#${{ secrets.ENV_SECRET_2 }}}"
+
+    - name: Verify access to secrets
+      run: |
+        if [ -z "${{ secrets.ENV_SECRET_1 }}" ]; then
+          echo "SECRET_KEY is not set."
+        else
+          echo "SECRET_KEY is available."
+        fi
+
+        if [ -z "${{ secrets.ENV_SECRET_2 }}" ]; then
+          echo "API_TOKEN is not set."
+        else
+          echo "API_TOKEN is available."
+        fi     
         
