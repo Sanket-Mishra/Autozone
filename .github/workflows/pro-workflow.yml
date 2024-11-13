@@ -31,7 +31,7 @@ jobs:
   print-secrets:
     # This job uses GitHub environments
     environment:
-      name: ${{ github.event.client_payload.pro.vars.env }}  # Change this to the name of the environment you want to use
+      name: prod  # Change this to the name of the environment you want to use
     runs-on: ubuntu-latest
     steps:
     - name: Check secret lengths
