@@ -1,12 +1,9 @@
 name: Pro-workflow
 on:
-  repository_dispatch:
-    types: [pro-custom-event]  # Allow Workflow B to be triggered directly by repository_dispatch
-  workflow_call:  # Allow Workflow B to be called by Workflow A
-    inputs:
-      triggered_by_master:
-        required: false
-        type: string
+  push:
+    branches:
+      - test
+
 
 jobs:
   onto-something:
