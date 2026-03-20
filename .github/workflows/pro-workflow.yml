@@ -63,4 +63,47 @@ jobs:
         else
           echo "API_TOKEN is available."
         fi     
+
+
+
+
+
+
+
+
+2026-03-20 14:10:42,501     INFO: b50272fc-Creating cluster root ca and key...
+2026-03-20 14:10:42,888     INFO: b50272fc-Trying to unlock BCMT_lock_bcmt_config
+2026-03-20 14:10:42,888     INFO: b50272fc-Lock BCMT_lock_bcmt_config is found in local cache.
+2026-03-20 14:10:42,889     INFO: b50272fc-Lock BCMT_lock_bcmt_config is acquired, unlock it.
+2026-03-20 14:10:42,890     INFO: b50272fc-lock keeper BCMT_lock_bcmt_config refresh finished
+2026-03-20 14:10:42,893     INFO: b50272fc-Removing key /BCMTClusterManager/lock_owner/BCMT_lock_bcmt_config.
+2026-03-20 14:10:42,898     INFO: b50272fc-Request b50272fc process finished.
+2026-03-20 14:10:42,916     INFO: cc9da7cf-load_bcmt_config done, run time: 0.54s
+2026-03-20 14:10:42,924     INFO: cc9da7cf-Start to combine_external_dns
+2026-03-20 14:10:42,948     INFO: cc9da7cf-Removing key /BCMTClusterManager/bcmt_config/cluster_config/external_dns.
+2026-03-20 14:10:42,968     INFO: cc9da7cf-combine_external_dns done, run time: 0.03s
+2026-03-20 14:10:42,975     INFO: cc9da7cf-Start to sync_local_time
+2026-03-20 14:11:23,486    ERROR: cc9da7cf-Task cc9da7cf-483c-4c9c-a172-ff600edb4e9c failed with BCMTException
+2026-03-20 14:11:23,487     INFO: cc9da7cf-BCMTException: error_code "'500'", error_msg '"\'Sync local time failed\'"'
+2026-03-20 14:11:23,488     INFO: cc9da7cf-Traceback (most recent call last):
+  File "/root/CSF-BCMT/ncms/commands/cluster/install.py", line 45, in wrapper
+    func(*args, **kw)
+  File "/root/CSF-BCMT/ncms/commands/cluster/install.py", line 385, in sync_local_time
+    raise_exception("Sync local time failed", 500)
+  File "/root/CSF-BCMT/ncms/commands/utils/bcmt.py", line 1747, in raise_exception
+    raise BCMTException(err_msg, err_code)
+ncms.commands.utils.bcmt.BCMTException: "'Sync local time failed' 500"
+
+2026-03-20 14:11:23,514     INFO: cc9da7cf-Trying to unlock NCMS_lock_cluster_install
+2026-03-20 14:11:23,514     INFO: cc9da7cf-Lock NCMS_lock_cluster_install is found in local cache.
+2026-03-20 14:11:23,515     INFO: cc9da7cf-Lock NCMS_lock_cluster_install is acquired, unlock it.
+2026-03-20 14:11:23,519     INFO: cc9da7cf-Removing key /BCMTClusterManager/lock_owner/NCMS_lock_cluster_install.
+
+
+
+
+
+
+
+
         
